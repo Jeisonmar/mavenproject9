@@ -96,7 +96,9 @@ public class ProgramaMatematicoCompleto {
 
         int aciertos = 0;
         int errores = 0;
-        for (int i = 0; i < 10; i++) {
+        int totalPreguntas = 10;
+
+        while (aciertos + errores < totalPreguntas) {
             int[] operandos = operacionesMatematicas.generarOperandos();
             String pregunta = operacionesMatematicas.generarPregunta(operandos[0], operandos[1]);
             int respuestaCorrecta = operacionesMatematicas.calcularRespuesta(operandos[0], operandos[1]);
@@ -113,11 +115,8 @@ public class ProgramaMatematicoCompleto {
             }
         }
 
-       
-        gestorInteraccion.mostrarMensaje("Has completado el ejercicio.");
+        gestorInteraccion.mostrarMensaje("Resultados:");
         gestorInteraccion.mostrarMensaje("Aciertos: " + aciertos);
         gestorInteraccion.mostrarMensaje("Errores: " + errores);
     }
 }
-
-
