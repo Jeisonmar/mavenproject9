@@ -38,6 +38,17 @@ public class ProgramaMatematicoCompleto {
             int indiceAleatorio = random.nextInt(mensajesNegativos.length);
             System.out.println(mensajesNegativos[indiceAleatorio]);
         }
+
+        public void mostrarEstadisticas(int aciertos, int totalPreguntas) {
+            double porcentajeCorrecto = ((double) aciertos / totalPreguntas) * 100;
+            
+            mostrarMensaje("Respuestas correctas: " + aciertos + " (" + porcentajeCorrecto + "%)");
+            if (porcentajeCorrecto < 75) {
+                mostrarMensaje("Por favor pide ayuda adicional a tu instructor.");
+            } else {
+                mostrarMensaje("Felicidades, estás listo para pasar al siguiente nivel!");
+            }
+        }
     }
 
     public static class OperacionesMatematicas {
@@ -98,7 +109,7 @@ public class ProgramaMatematicoCompleto {
         int errores = 0;
         int totalPreguntas = 10;
 
-        while (aciertos + errores < totalPreguntas) {
+        for (int i = 0; i < totalPreguntas; i++) {
             int[] operandos = operacionesMatematicas.generarOperandos();
             String pregunta = operacionesMatematicas.generarPregunta(operandos[0], operandos[1]);
             int respuestaCorrecta = operacionesMatematicas.calcularRespuesta(operandos[0], operandos[1]);
@@ -115,8 +126,8 @@ public class ProgramaMatematicoCompleto {
             }
         }
 
-        gestorInteraccion.mostrarMensaje("Resultados:");
-        gestorInteraccion.mostrarMensaje("Aciertos: " + aciertos);
-        gestorInteraccion.mostrarMensaje("Errores: " + errores);
+        gestorInteraccion.mostrarEstadisticas(aciertos, totalPreguntas);
+
+        entrada.close();
     }
 }
