@@ -1,6 +1,8 @@
 import java.util.Random;
+import java.util.Scanner;
 
 public class ProgramaMatematicoCompleto {
+    private static Scanner entrada = new Scanner(System.in);
 
     public static class GestorInteraccion {
         Random random;
@@ -66,16 +68,56 @@ public class ProgramaMatematicoCompleto {
         }
 
         public int calcularRespuesta(int numero1, int numero2) {
-            if (tipoProblema == 1) return numero1 + numero2;
-            else if (tipoProblema == 2) return numero1 - numero2;
-            else if (tipoProblema == 3) return numero1 * numero2;
-            else if (tipoProblema == 4) return numero1 / numero2;
-            else return 0;
+            switch (tipoProblema) {
+                case 1:
+                    return numero1 + numero2;
+                case 2:
+                    return numero1 - numero2;
+                case 3:
+                    return numero1 * numero2;
+                case 4:
+                    return numero1 / numero2;
+                default:
+                    return 0; 
+            }
         }
     }
 
     public static void main(String[] args) {
-        // La interacción con el usuario y la lógica del juego se añadirán en futuros commits.
+        GestorInteraccion gestorInteraccion = new GestorInteraccion();
+
+        gestorInteraccion.mostrarMensaje("Elige el nivel de dificultad (1 o 2):");
+        int nivelDificultad = entrada.nextInt();
+
+        gestorInteraccion.mostrarMensaje("Elige el tipo de problema aritmético (1: Suma, 2: Resta, 3: Multiplicación, 4: División):");
+        int tipoProblema = entrada.nextInt();
+
+        OperacionesMatematicas operacionesMatematicas = new OperacionesMatematicas(nivelDificultad, tipoProblema);
+
+        int aciertos = 0;
+        int errores = 0;
+        for (int i = 0; i < 10; i++) {
+            int[] operandos = operacionesMatematicas.generarOperandos();
+            String pregunta = operacionesMatematicas.generarPregunta(operandos[0], operandos[1]);
+            int respuestaCorrecta = operacionesMatematicas.calcularRespuesta(operandos[0], operandos[1]);
+
+            gestorInteraccion.mostrarMensaje(pregunta);
+            int respuestaUsuario = entrada.nextInt();
+
+            if (respuestaUsuario == respuestaCorrecta) {
+                aciertos++;
+                gestorInteraccion.mostrarMensajePositivo();
+            } else {
+                errores++;
+                gestorInteraccion.mostrarMensajeNegativo();
+            }
+        }
+
+       
+        gestorInteraccion.mostrarMensaje("Has completado el ejercicio.");
+        gestorInteraccion.mostrarMensaje("Aciertos: " + aciertos);
+        gestorInteraccion.mostrarMensaje("Errores: " + errores);
     }
 }
+
 
